@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>小饭桌详情</title>
+	<meta charset="UTF-8" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" href="style/main.css" type="text/css"/>
+</head>
+<body class='hyyrtj' style="background-image: url({{#if( templateSkin=== 'red' )}} '/red-background.png' {{else}} '/blue-background.png' {{/if}});background-size: cover;">
+	<div class="title-attribute">{{titleAttribute}}</div>
+	<div class="title-main-container flex-container">
+		<img src="/xfz-title.png" alt="小饭桌">
+		<div class="title-main-content flex-container circle">
+			<span>人数</span>
+			<span class="number">{{vocalAmount}}</span>
+		</div>
+	</div>
+	<div class="contactor-main-container flex-container">
+		<div class="contactor-name-container">
+			<span class="contactor-label" style="color: {{#if( templateSkin=== 'red' )}} red {{else}} skyblue {{/if}};">联系人</span>
+			<span>{{contactor.name}}</span>
+		</div>
+		<a class="tel" href="tel:{{contactor.tel}}" style="background-image: url({{#if( templateSkin=== 'red' )}} '/red-button @2x.png' {{else}} '/blue-button @2x.png' {{/if}})">电话 {{contactor.formatTel}}</a>
+		<span class="tel-inform">点击按钮<br>拨打电话</span>
+	</div>
+	<div class="address-main-container flex-container">
+		<div class="address-name-container">
+			<span class="contactor-label" style="color: {{#if( templateSkin=== 'red' )}} red {{else}} skyblue {{/if}};">地址</span>
+			<a href="#" class="open-map">查看地图</a>
+		</div>
+		<address>{{contactor.address}}</address>
+	</div>
+	<div class="photos-main-container">
+		{{#each(photoList)}}
+		<div class="photo-container">
+			<img src="{{this}}" alt="">
+		</div>
+		{{/each}}
+	</div>
+
+	<script src="https://cdn.bootcss.com/zepto/1.0.0/zepto.min.js"></script>
+	<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script>
+		wx.config({
+		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		    appId: "{{wxparam.appid}}", // 必填，公众号的唯一标识
+		    timestamp: "{{wxparam.timestamp}}", // 必填，生成签名的时间戳
+		    nonceStr: "{{wxparam.noncestr}}", // 必填，生成签名的随机串
+		    signature: "{{wxparam.signature}}",// 必填，签名，见附录1
+		    jsApiList: [
+		    	'onMenuShareTimeline',
+				'onMenuShareAppMessage',
+				'onMenuShareQQ',
+				'onMenuShareWeibo',
+				'onMenuShareQZone',
+				'openLocation',
+				'previewImage'
+		    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+
+		wx.ready(function(){
+		    wx.checkJsApi({
+			    jsApiList: ['openLocation'],
+			    success: function(res) {
+			        console.log(res)
+			        $('.open-map').on('click', function(){
+			        	wx.openLocation({  
+						   latitude: {{location.latitude}}, // 纬度，浮点数，范围为90 ~ -90  
+						   longitude: {{location.longitude}}, // 经度，浮点数，范围为180 ~ -180。  
+						   name: '小饭桌', // 位置名  
+						   address: {{contactor.address}}, // 地址详情说明  
+						   scale: 1, // 地图缩放级别,整形值,范围从1~28。默认为最大  
+						   infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转  
+						});
+			        });
+			    }
+			});
+
+			wx.checkJsApi({
+			    jsApiList: ['previewImage'],
+			    success: function(res) {
+			        console.log(res)
+			        var urlPrefix = window.location.protocol + '//' + window.location.host;
+			        $('.photo-container>img').on('click', function(){
+			        	var slides = {
+										current: $(this)[0].src,
+										urls: []
+									};
+						{{#each(photoList)}}
+						slides.urls.push(urlPrefix + '{{this}}');
+						{{/each}}
+
+						wx.previewImage(slides);
+			        });
+			    }
+			});
+		});
+
+
+	</script>
+</body>
+</html>

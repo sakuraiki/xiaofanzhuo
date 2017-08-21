@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>小饭桌详情</title>
+	<meta charset="UTF-8" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1">
+</head>
+<body>
+	<h1>点击标题开始录音翻译</h1>
+	<p id="title"></p>
+	<div id="doctor"></div>
+	<div id="year"></div>
+	<div id="poster"></div>
+	<script src="https://cdn.bootcss.com/zepto/1.0.0/zepto.min.js"></script>
+	<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script>
+		wx.config({
+		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		    appId: '<%=appid %>', // 必填，公众号的唯一标识
+		    timestamp: '<%=timestamp %>', // 必填，生成签名的时间戳
+		    nonceStr: '<%=noncestr %>', // 必填，生成签名的随机串
+		    signature: '<%=signature %>',// 必填，签名，见附录1
+		    jsApiList: [
+		    	'onMenuShareTimeline',
+				'onMenuShareAppMessage',
+				'onMenuShareQQ',
+				'onMenuShareWeibo',
+				'onMenuShareQZone',
+		    	'startRecord',
+				'stopRecord',
+				'onVoiceRecordEnd',
+				'translateVoice',
+				'openLocation',
+				'previewImage'
+		    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+
+		wx.ready(function(){
+		    wx.checkJsApi({
+			    jsApiList: ['onVoiceRecordEnd'],
+			    success: function(res) {
+			        console.log(res)
+
+			        var slides
+			        $('#poster').on('tap', function(){
+			        	wx.previewImage(slides)
+			        })
+
+
+			        var isRecording = false
+			        $('h1').on('tap', function(){
+			        	if(!isRecording){
+			        		isRecording = true
+							wx.startRecord({
+								cancel: function(){
+									window.alert('使用这个功能需要同意')
+								}
+							});
+							return
+						}else{
+							isRecording = false
+							wx.stopRecord({
+							    success: function (res) {
+							        var localId = res.localId;
+							        wx.translateVoice({
+									   localId: localId, 
+									    isShowProgressTips: 1, 
+									    success: function (res) {
+									    	var result = res.translateResult
+
+									    	$.ajax({
+									    		type: 'get',
+									    		url: 'https://api.douban.com/v2/movie/search?q=' + result,
+									    		dataType: 'jsonp',
+									    		jsonp: 'callback',
+									    		success: function(data){
+									    			var subject = data.subjects[0]
+
+									    			$('#title').html(subject.title)
+									    			$('#year').html(subject.year)
+									    			$('#director').html(subject.directors[0].name)
+									    			$('#poster').html('<img src="' + subject.images.large + '" />')
+
+									    			var shareContent = {
+													    title: subject.title, // 分享标题
+													    desc: '哈哈哈', // 分享描述
+													    link: 'https://www.baidu.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+													    imgUrl: subject.images.large, // 分享图标
+													    type: 'link', // 分享类型,music、video或link，不填默认为link
+													    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+													    success: function () { 
+													        window.alert('分享成功')
+													    },
+													    cancel: function () { 
+													        window.alert('分享失败')
+													    }
+													}
+													wx.onMenuShareAppMessage(shareContent)
+
+													slides = {
+														current: subject.images.large,
+														urls: [subject.images.large]
+													}
+
+													data.subjects.forEach(function(item){
+														slides.urls.push(item.images.large)
+													})
+													
+									    		}
+									    	})
+									    }
+									});
+							    }
+							});
+						}
+					})
+
+			    }
+			});
+
+
+
+
+		    
+			
+		});
+
+
+	</script>
+</body>
+</html>

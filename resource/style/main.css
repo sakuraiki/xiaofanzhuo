@@ -1,0 +1,119 @@
+@font-face {
+  font-family: HYYouRanTiJ;
+  src: url("/HYYouRanTiJ.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal; 
+}
+
+.hyyrtj *{
+	font-family: HYYouRanTiJ;
+}
+
+body{
+  padding: 10vw 5vw;
+}
+.title-attribute{
+	color: #FFF000;
+  font-size: 20vw;
+  text-align: center;
+  line-height: 0.75;
+  text-shadow: 0 6px 6px #000;
+  letter-spacing: -4vw;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: row;
+	justify-content: center;
+  color: white;
+}
+
+
+.title-main-container{
+  height: 14vw;
+}
+.title-main-container>img{
+  height: 14vw;
+}
+div.title-main-content{
+  flex-direction: column;
+	align-content: center;
+}
+.circle{
+  width: 12vw;
+  height: 12vw;
+  margin: 1vw;
+  font-size: 3vw;
+  border: solid #FFF000 0.5vw;
+  border-radius: 10vw;
+}
+.circle span{
+  text-align: center;
+  line-height: 0.75;
+}
+.circle .number{
+  font-size: 5vw;
+}
+
+
+.contactor-main-container{
+  height: 6.8vw;
+  line-height: 6.8vw;
+  font-size: 4.5vw;
+  margin-top: 7vw;
+}
+.contactor-name-container{
+  width: 30vw;
+  flex: 1;
+  margin-right: 2vw;
+  letter-spacing: -1vw;
+}
+.contactor-label{
+    border-radius: 6.8vw;
+    background-color: #FFFFFF;
+    color: red;
+    padding: 0.3vw 1vw;
+    white-space: nowrap;
+}
+.tel{
+    width: 40vw;
+    color: white;
+    text-align: center;
+    text-decoration:none;
+    margin-right: 1vw;
+    background-size: cover;
+}
+.tel-inform{
+  font-size: 2.5vw;
+  line-height: 3.5vw;
+}
+
+.address-main-container{
+  height: 6.8vw;
+  line-height: 5vw;
+  font-size: 4.5vw;
+  margin-top: 2vw;
+}
+.address-main-container address{
+  letter-spacing: -0.7vw;
+}
+.address-main-container a{
+  font-size: 4vw;
+  letter-spacing: -1vw;
+  color: yellow;
+}
+.address-name-container{
+  flex-direction: column;
+  padding: 1vw 0;
+}
+
+.photos-main-container{
+  margin-top: 12vw;
+}
+.photo-container{
+  padding: 0;
+  margin: 0 0 7vw 0;
+}
+.photo-container img{
+  height: 50vw;
+}
