@@ -472,9 +472,9 @@ app.use(convert(function *(next){
     		wxparam: params,
     		templateSkin: Math.random()>=0.5?'blue':'red',
     		titleAttribute: '超级好吃的',
-    		vocalAmount: 500,
+    		vocalAmount: _result.volume||500,
     		contactor: {
-    			name: _result.contactor||'王中一',
+    			name: _result.contactor||'佚名',
     			formatTel: _result.tel||'138-8888-8888',
     			tel: _result.tel||'13888888888',
     			address: _result.address||'很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的地址'

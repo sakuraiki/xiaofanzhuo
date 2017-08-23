@@ -75,12 +75,13 @@ exports.reply = function* (next){
 			var userInfo = yield mysql.findWxuser(message.FromUserName)
 			userInfo = JSON.parse(JSON.stringify(userInfo))[0]
 			if(userInfo && userInfo.keyword){
-				reply = '該學校附近的小飯桌為:\n'
+				reply = '該學校附近的小飯桌有:\n'
 				var _result = yield mysql.findSchoolByName(userInfo.keyword)
 				_result = JSON.parse(JSON.stringify(_result))
 				var _index = content.split('#')[1]
 				_result = yield mysql.findSchoolByFullName(_result[_index].name)
 				_result = JSON.parse(JSON.stringify(_result))
+				console.log(JSON.stringify(_result))
 				if(_result){
 					for(var i = 0; i < _result.length; ++i){
 						var _url = host? host + '/detail?id=' + _result[i].xfzid : '/detail?id=' + _result[i].xfzid
@@ -97,14 +98,20 @@ exports.reply = function* (next){
 			if(userInfo){
 				reply = '您想搜索的學校是:\n'
 				var _result = yield mysql.findSchoolByName(content)
-				yield mysql.insertOrUpdateWxuser(message.FromUserName,userInfo.longitude,userInfo.latitude,content,+new Date())
 				_result = JSON.parse(JSON.stringify(_result))
-				if(_result){
-					for(var i = 0; i < _result.length; ++i){
-						reply += `#${i}:${_result[i].name}\n`
-					}
+				yield mysql.insertOrUpdateWxuser(message.FromUserName,userInfo.longitude,userInfo.latitude,content,+new Date())
+				if(_result.length === 1 && _result.xfzname === content){
+					reply = '該學校附近的小飯桌為:\n'
+					var _url = host? host + '/detail?id=' + _result[0].xfzid : '/detail?id=' + _result[0].xfzid
+					reply += '<a href ="'+ _url +'">'+ _result[0].xfzname +'</a>\n'
 				}else{
-					reply += '無'
+					if(_result){
+						for(var i = 0; i < _result.length; ++i){
+							reply += `#${i}:${_result[i].name}\n`
+						}
+					}else{
+						reply += '無'
+					}
 				}
 			}
 		}

@@ -211,7 +211,7 @@ var findSchoolByName = function ( school ) {
 // 通过关键词精确查找对应小饭桌
 var findSchoolByFullName = function ( school ) {
   var _sql = `
-    SELECT xfzid FROM schools where name="${school}"
+    SELECT * FROM schools where name="${school}"
       `
   return query( _sql)
 }
