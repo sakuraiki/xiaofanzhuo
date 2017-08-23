@@ -60,8 +60,9 @@ var xfzs=
 var schools=
 `create table if not exists schools(
  id INT NOT NULL AUTO_INCREMENT,
- name VARCHAR(100) NOT NULL,
+ name VARCHAR(400) NOT NULL,
  xfzid INT NOT NULL,
+ xfzname VARCHAR(400) NOT NULL,
  PRIMARY KEY ( id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`
 
@@ -225,7 +226,7 @@ var findSchoolByXfz = function ( xfzid ) {
 
 // 新增关键词
 var insertSchool = function( value ) {
-  var _sql = "insert into schools(name,xfzid) values(?,?);"
+  var _sql = "insert into schools(name,xfzid,xfzname) values(?,?,?);"
   return query( _sql, value )
 }
 
@@ -236,11 +237,12 @@ var insertSchool = function( value ) {
 // }
 
 // 修改关键词信息
-var updateSchool = function( id, name, xfzid ) {
+var updateSchool = function( id, name, xfzid, xfzname ) {
   var _sql = `
     UPDATE schools
     SET name="${name}",
-        xfzid="${xfzid}"
+        xfzid="${xfzid}",
+        xfzname="${xfzname}"
       where id="${id}"
       `
   return query( _sql)

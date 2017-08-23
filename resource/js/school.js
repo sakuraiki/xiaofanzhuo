@@ -55,7 +55,8 @@ var operate = {
         this.SchoolModel = {
             id: ko.observable(),
             name: ko.observable(),
-            xfzid: ko.observable()
+            xfzid: ko.observable(),
+            xfzname: ko.observable()
         };
     },
     //新增
@@ -65,7 +66,8 @@ var operate = {
                 var oEmptyModel = {
                     id: ko.observable(),
                     name: ko.observable(),
-                    xfzid: ko.observable()
+                    xfzid: ko.observable(),
+                    xfzname: ko.observable()
                 };
                 ko.utils.extend(operate.SchoolModel, oEmptyModel);
                 ko.applyBindings(operate.SchoolModel, document.getElementById("myModal"));

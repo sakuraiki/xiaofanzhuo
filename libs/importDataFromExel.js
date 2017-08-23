@@ -56,9 +56,10 @@ for(idx = 1; idx <= len; ++idx){
 
 	var schoolData = {
 		name: line[dataForm['毗邻学校名称']],
-		xfzid: line[dataForm['小饭桌编号']]
+		xfzid: line[dataForm['小饭桌编号']],
+		xfzname: line[dataForm['小饭桌名称']]
 	};
-	singleSchoolValue = `("${schoolData.name}",${schoolData.xfzid})`;
+	singleSchoolValue = `("${schoolData.name}",${schoolData.xfzid},"${schoolData.xfzname}")`;
 
 	if(idx < len){
 		singleXfzValue += ','
@@ -71,7 +72,7 @@ for(idx = 1; idx <= len; ++idx){
 // console.log(xfzQueryValues)
 // console.log(schoolQueryValues)
 // console.log('insert into xfzs(id,name,address,contactor,tel,longitude,latitude,volume,photolist) values' + xfzQueryValues + ' ON DUPLICATE KEY UPDATE name=values(name),address=values(address),contactor=values(contactor),tel=values(tel),longitude=values(longitude),latitude=values(latitude),volume=values(volume),photolist=values(photolist);')
-console.log('insert into schools(name,xfzid) values' + schoolQueryValues + ' ON DUPLICATE KEY UPDATE name=values(name),xfzid=values(xfzid);');
+console.log('insert into schools(name,xfzid,xfzname) values' + schoolQueryValues + ' ON DUPLICATE KEY UPDATE name=values(name),xfzid=values(xfzid),xfzname=values(xfzname);');
 // var updateXfzInfo = await query('insert into xfzs(id,name,address,contactor,tel,longitude,latitude,volume,photolist) values' + xfzQueryValues + ' ON DUPLICATE KEY UPDATE name=values(name),address=values(address),contactor=values(contactor),tel=values(tel),longitude=values(longitude),latitude=values(latitude),volume=values(volume),photolist=values(photolist);')
 // var updateSchoolInfo = await query('insert into schools(name,xfzid) values' + schoolQueryValues + ' ON DUPLICATE KEY UPDATE name=values(name),xfzid=values(xfzid);')
 // console.log(updateXfzInfo);

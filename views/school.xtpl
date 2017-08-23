@@ -71,7 +71,8 @@
                     <th data-checkbox="true"></th>
                     <th data-field="id">ID</th>
                     <th data-field="name">学校名(关键词)</th>
-                    <th data-field="xfzid">小饭桌id</th>
+                    <th data-field="xfzid">小饭桌编号</th>
+                    <th data-field="xfzname">小饭桌名称</th>
                 </tr>
             </thead>
         </table>
@@ -95,8 +96,12 @@
                             <input type="text" name="txt_name" data-bind="value:name" class="form-control" id="txt_name" placeholder="学校名(关键词)">
                         </div>
                         <div class="form-group">
-                            <label for="txt_xfzid">小饭桌id</label>
-                            <input type="text" name="txt_xfzid" data-bind="value:xfzid" class="form-control" id="txt_xfzid" placeholder="小饭桌id">
+                            <label for="txt_xfzid">小饭桌编号</label>
+                            <input type="text" name="txt_xfzid" data-bind="value:xfzid" class="form-control" id="txt_xfzid" placeholder="小饭桌编号">
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_xfzname">小饭桌名称</label>
+                            <input type="text" name="txt_xfzname" disabled data-bind="value:xfzname" class="form-control" id="txt_xfzname" placeholder="小饭桌名称">
                         </div>
                     </div>
                     <div class="modal-footer">

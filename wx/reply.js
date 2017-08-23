@@ -84,7 +84,7 @@ exports.reply = function* (next){
 				if(_result){
 					for(var i = 0; i < _result.length; ++i){
 						var _url = host? host + '/detail?id=' + _result[i].xfzid : '/detail?id=' + _result[i].xfzid
-						reply += '<a href ="'+ _url +'">/detail?id='+ _result[i].xfzid +'</a>\n'
+						reply += '<a href ="'+ _url +'">'+ _result[i].xfzname +'</a>\n'
 					}
 				}else{
 					reply += '無'

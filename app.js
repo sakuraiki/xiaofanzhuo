@@ -244,7 +244,7 @@ app.use(async (ctx,next) => {
 			var sql_head = 'SELECT COUNT(*) FROM schools'
 			var sql_main = ''
 			if(search){
-				sql_main += ' where xfzid like "%'+ search +'%" or name like "%'+ search +'%"'
+				sql_main += ' where xfzid like "%'+ search +'%" or xfzname like "%'+ search +'%" or name like "%'+ search +'%"'
 			}
 			
 			var total = await mysql.query(sql_head + sql_main)
@@ -285,11 +285,18 @@ app.use(async (ctx,next) => {
 			let id=fields.id
             let schoolname = fields.name
             let xfzid = fields.xfzid
+            let xfzname = ''
+
+            var relatedXfzInfo = await mysql.findXfzById(xfzid)
+            if(relatedXfzInfo.length > 0){
+		    	relatedXfzInfo = JSON.parse(JSON.stringify(relatedXfzInfo))[0]
+		    	xfzname = relatedXfzInfo.name
+            }
 
             if(id){
-            	let result = await mysql.updateSchool(id,schoolname,xfzid)
+            	let result = await mysql.updateSchool(id,schoolname,xfzid,xfzname)
             }else{
-            	let result = await mysql.insertSchool([schoolname,xfzid])
+            	let result = await mysql.insertSchool([schoolname,xfzid,xfzname])
             }
 
             console.log(JSON.stringify(result))
