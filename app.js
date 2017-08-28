@@ -471,7 +471,7 @@ app.use(convert(function *(next){
     	yield this.render('detail',{
     		wxparam: params,
     		templateSkin: Math.random()>=0.5?'blue':'red',
-    		titleAttribute: '超级好吃的',
+    		titleAttribute: config.titleAttribute,
     		vocalAmount: _result.volume||500,
     		contactor: {
     			name: _result.contactor||'佚名',

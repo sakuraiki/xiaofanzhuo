@@ -107,7 +107,7 @@ exports.reply = function* (next){
 				}else{
 					if(_result){
 						for(var i = 0; i < _result.length; ++i){
-							reply += `#${i}:${_result[i].name}\n`
+							reply += `#${i+1}:${_result[i].name}\n`
 						}
 					}else{
 						reply += '無'

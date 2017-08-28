@@ -62,7 +62,8 @@ var config = {
 	    PORT: '3306',
 	    HOST: 'localhost'
 	},
-	host: 'https://47.94.41.239:80'
+	host: 'https://47.94.41.239:80',
+	titleAttribute: '超级好吃的'
 }
 
 module.exports = config
