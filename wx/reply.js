@@ -78,7 +78,7 @@ exports.reply = function* (next){
 				reply = '該學校附近的小飯桌有:\n'
 				var _result = yield mysql.findSchoolByName(userInfo.keyword)
 				_result = JSON.parse(JSON.stringify(_result))
-				var _index = content.split('#')[1]
+				var _index = content.split('#')[1] - 1
 				_result = yield mysql.findSchoolByFullName(_result[_index].name)
 				_result = JSON.parse(JSON.stringify(_result))
 				console.log(JSON.stringify(_result))

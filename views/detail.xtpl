@@ -56,7 +56,7 @@
 		    wx.checkJsApi({
 			    jsApiList: ['openLocation','previewImage'],
 			    success: function(res) {
-			        console.log(res)
+			        // console.log(res)
 			        $('.open-map').on('click', function(){
 			        	wx.openLocation({  
 						   latitude: {{location.latitude}}, // 纬度，浮点数，范围为90 ~ -90  

@@ -99,6 +99,7 @@ div.title-main-content{
 }
 .address-main-container a{
   font-size: 4vw;
+  width: 2.5em;
   letter-spacing: -1vw;
   color: yellow;
 }
