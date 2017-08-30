@@ -24,7 +24,7 @@ body{
 .flex-container{
   display: flex;
   flex-direction: row;
-	justify-content: center;
+	justify-content: space-around;
   color: white;
 }
 
@@ -96,10 +96,12 @@ div.title-main-content{
 }
 .address-main-container address{
   letter-spacing: -0.7vw;
+  flex: 1;
+  margin-left: 5vw;
 }
 .address-main-container a{
   font-size: 4vw;
-  width: 2.5em;
+  width: 8vw;
   letter-spacing: -1vw;
   color: yellow;
 }

@@ -75,7 +75,7 @@
                            // $('.success').text('登录成功')
                            // fade('.success')
                            setTimeout(()=>{
-                               window.location.href="http://localhost:4040/xfzlocal/school.html"
+                               window.location.href="school.html"
                            },1000)        
                    }      
                     //console.log($('.ui.error.message').text);
